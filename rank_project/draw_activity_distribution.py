@@ -64,7 +64,7 @@ def search_top_index(k, index_name, index_type="bci"):
 if __name__ == "__main__":
     es = Elasticsearch("219.224.135.93")
     all_range = []
-    top_index = search_top_k(1,"20130901")
+    top_index = search_top_index(1,"20130901")
     total_range = int(math.ceil(top_index/100.0))
     for i in range(total_range):
         temp_number = query_es("20130901",i*100,(i+1)*100)
