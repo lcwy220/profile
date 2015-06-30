@@ -50,7 +50,7 @@ def query_brust(index_name,range_1, range_2):
     return result
 
 
-def search_top_k(k, index_name, index_type="bci"):
+def search_top_index(k, index_name, index_type="bci"):
     query_body = {
         "query": {
             "match_all": {}
@@ -58,14 +58,8 @@ def search_top_k(k, index_name, index_type="bci"):
         "size": k,
         "sort": [{"index": {"order": "desc"}}]
     }
-    top_index_list = []
-    ts = time.time()
-    for i in range(5):
-        result = es.search(index=index_name, doc_type=index_type, body=query_body)['hits']['hits'][0]['_source']['index']
-        top_index_list.append(result)
-    te = time.time()
-    print te-ts
-    return max(top_index_list)
+    result = es.search(index=index_name, doc_type=index_type, body=query_body)['hits']['hits'][0]['_source']['index']
+    return result
 
 if __name__ == "__main__":
     es = Elasticsearch("219.224.135.93")
